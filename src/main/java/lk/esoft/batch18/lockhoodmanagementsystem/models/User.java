@@ -1,5 +1,10 @@
 package lk.esoft.batch18.lockhoodmanagementsystem.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,6 +19,9 @@ import javax.validation.constraints.Size;
       @UniqueConstraint(columnNames = "username"),
       @UniqueConstraint(columnNames = "email") 
     })
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class User {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,52 +46,52 @@ public class User {
         inverseJoinColumns = @JoinColumn(name = "role_id"))
   private Set<Role> roles = new HashSet<>();
 
-  public User() {
-  }
+  @Column(name = "f_name",length = 100)
+  private String firstName;
 
-  public User(String username, String email, String password) {
-    this.username = username;
-    this.email = email;
-    this.password = password;
-  }
+  @Column(name = "address",length = 100)
+  private String address;
 
-  public Long getId() {
-    return id;
-  }
+  @Column(name = "e_com_email",length = 100)
+  private String companyEmail;
 
-  public void setId(Long id) {
-    this.id = id;
-  }
+  @Column(name = "contact_number",length = 100)
+  private int contactNumber;
 
-  public String getUsername() {
-    return username;
-  }
+  @Column(name = "active_state",columnDefinition = "TINYINT default 1")
+  private boolean activeState;
 
-  public void setUsername(String username) {
-    this.username = username;
-  }
+  @Column(name = "nic",length = 100)
+  private String nic;
 
-  public String getEmail() {
-    return email;
-  }
+  @Column(name = "e_mname",length = 100)
+  private String mName;
 
-  public void setEmail(String email) {
-    this.email = email;
-  }
+  @Column(name = "e_lname",length = 100)
+  private String lastName;
 
-  public String getPassword() {
-    return password;
-  }
+  @Column(name = "image",length = 100)
+  private String image;
 
-  public void setPassword(String password) {
-    this.password = password;
-  }
+  @Column(name = "created_by",length = 100)
+  private String createdBy;
 
-  public Set<Role> getRoles() {
-    return roles;
-  }
+  @Column(name = "created_date",length = 100)
+  private Date createdDate;
 
-  public void setRoles(Set<Role> roles) {
-    this.roles = roles;
-  }
+  @Column(name = "updated_by",length = 100)
+  private String updatedBy;
+
+  @Column(name = "updated_date",length = 100)
+  private Date updatedDate;
+
+  @ManyToOne
+  @JoinColumn(name="company_id", nullable=false)
+  private Company company;
+
+  @ManyToOne
+  @JoinColumn(name="plant", nullable=false)
+  private Plant plant;
+
+
 }
