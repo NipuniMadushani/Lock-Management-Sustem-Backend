@@ -1,5 +1,6 @@
 package lk.esoft.batch18.lockhoodmanagementsystem.controllers;
 
+import lk.esoft.batch18.lockhoodmanagementsystem.dto.response.GetUserDTO;
 import lk.esoft.batch18.lockhoodmanagementsystem.models.*;
 import lk.esoft.batch18.lockhoodmanagementsystem.payload.paginated.PaginatedUsers;
 import lk.esoft.batch18.lockhoodmanagementsystem.payload.request.LoginRequest;
@@ -171,6 +172,19 @@ public class AuthController {
                 new StandardResponse(200, "Success", users),
                 HttpStatus.OK
         );
+    }
+
+    @GetMapping(
+            path = "/get-by-id-active",
+            params = "id")
+    public ResponseEntity<StandardResponse> getUserByIdActive(@RequestParam(value = "id") Long userId){
+        boolean b = true;
+        GetUserDTO getUserDTO = userService.getUserByIdActive(userId,b);
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(200, "Success", getUserDTO),
+                HttpStatus.OK
+        );
+
     }
 
 

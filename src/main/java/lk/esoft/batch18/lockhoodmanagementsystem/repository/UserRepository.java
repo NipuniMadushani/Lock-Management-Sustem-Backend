@@ -24,4 +24,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
   Page<User> findAll(Pageable pageable);
 
   long countAllBy();
+
+  User getByIdAndActiveState(Long userId,boolean b);
 }
