@@ -15,7 +15,7 @@ import java.util.Set;
 @Data
 public class Company {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "com_owner_name",length = 100)

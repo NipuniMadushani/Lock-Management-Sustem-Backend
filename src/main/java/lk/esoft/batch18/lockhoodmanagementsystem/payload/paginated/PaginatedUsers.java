@@ -11,6 +11,6 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public class PaginatedUsers {
-    private List<User> list;
+    private List<SignupRequest> list;
     private long dataCount;
 }

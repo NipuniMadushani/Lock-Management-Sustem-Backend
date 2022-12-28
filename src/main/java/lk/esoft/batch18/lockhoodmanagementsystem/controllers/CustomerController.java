@@ -31,14 +31,11 @@ public class CustomerController {
     }
 
     @GetMapping(
-            path = {"/get-all-customer"},
-            params = {"page", "size"}
+            path = {"/get-all-customer"}
     )
-    public ResponseEntity<StandardResponse> getAllCustomers(
-            @RequestParam(value = "page") int page,
-            @RequestParam(value = "size") @Max(50) int size
-
-    ) {
+    public ResponseEntity<StandardResponse> getAllCustomers() {
+        int page = 0;
+        int size = 1000;
         PaginatedGetCustomerDTO paginatedGetCustomerDTO = customerService.getAllCustomers(page, size);
         return new ResponseEntity<StandardResponse>(
                 new StandardResponse(200, "Success", paginatedGetCustomerDTO),

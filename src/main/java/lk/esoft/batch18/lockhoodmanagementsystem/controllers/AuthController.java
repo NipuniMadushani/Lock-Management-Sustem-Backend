@@ -1,8 +1,6 @@
 package lk.esoft.batch18.lockhoodmanagementsystem.controllers;
 
-import lk.esoft.batch18.lockhoodmanagementsystem.models.ERole;
-import lk.esoft.batch18.lockhoodmanagementsystem.models.Role;
-import lk.esoft.batch18.lockhoodmanagementsystem.models.User;
+import lk.esoft.batch18.lockhoodmanagementsystem.models.*;
 import lk.esoft.batch18.lockhoodmanagementsystem.payload.paginated.PaginatedUsers;
 import lk.esoft.batch18.lockhoodmanagementsystem.payload.request.LoginRequest;
 import lk.esoft.batch18.lockhoodmanagementsystem.payload.request.SignupRequest;
@@ -96,6 +94,9 @@ public class AuthController {
                     .badRequest()
                     .body(new MessageResponse("Error: Email is already in use!"));
         }
+        Company company = companyRepo.findById(signUpRequest.getCompanyId()).get();
+        Plant plant=plantRepo.findById(signUpRequest.getPlantId()).get();
+
 
         // Create new user's account
         User user = new User(
@@ -118,12 +119,12 @@ public class AuthController {
                 signUpRequest.getUpdatedBy(),
                 signUpRequest.getUpdatedDate(),
                 companyRepo.findById(signUpRequest.getCompanyId()).get(),
-                 plantRepo.findById(signUpRequest.getPlantId()).get());
+                plantRepo.findById(signUpRequest.getPlantId()).get());
 
 
 
 
-        Set<String> strRoles = signUpRequest.getRole();
+        Set<Role> strRoles = signUpRequest.getRoles();
         Set<Role> roles = new HashSet<>();
 
         if (strRoles == null) {
@@ -132,7 +133,7 @@ public class AuthController {
             roles.add(userRole);
         } else {
             strRoles.forEach(role -> {
-                switch (role) {
+                switch(role.getName().name()) {
                     case "admin":
                         Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
@@ -160,13 +161,11 @@ public class AuthController {
     }
 
     @GetMapping(
-            path = {"/get-all-users"},
-            params = {"page", "size"}
+            path = {"/get-all-users"}
     )
-    public ResponseEntity<StandardResponse> getAllItems(
-            @RequestParam(value = "page") int page,
-            @RequestParam(value = "size") @Max(50) int size
-            ) {
+    public ResponseEntity<StandardResponse> getAllItems() {
+        int page = 0;
+        int size = 1000;
         PaginatedUsers users = userService.getAllUsers(page, size);
         return new ResponseEntity<StandardResponse>(
                 new StandardResponse(200, "Success", users),
