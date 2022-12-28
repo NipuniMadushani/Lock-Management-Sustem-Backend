@@ -1,9 +1,19 @@
 package lk.esoft.batch18.lockhoodmanagementsystem.payload.request;
 
+import lk.esoft.batch18.lockhoodmanagementsystem.models.Role;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.validation.constraints.*;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class SignupRequest {
   @NotBlank
   @Size(min = 3, max = 20)
@@ -14,41 +24,26 @@ public class SignupRequest {
   @Email
   private String email;
 
-  private Set<String> role;
+  private Set<Role> roles;
 
   @NotBlank
   @Size(min = 6, max = 40)
+
   private String password;
+  private String firstName;
+  private String address;
+  private String companyEmail;
+  private int contactNumber;
+  private boolean activeState;
+  private String nic;
+  private String mName;
+  private String lastName;
+  private String image;
+  private String createdBy;
+  private Date createdDate;
+  private String updatedBy;
+  private Date updatedDate;
+  private Long companyId;
+  private Long plantId;
 
-  public String getUsername() {
-    return username;
-  }
-
-  public void setUsername(String username) {
-    this.username = username;
-  }
-
-  public String getEmail() {
-    return email;
-  }
-
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
-  }
-
-  public Set<String> getRole() {
-    return this.role;
-  }
-
-  public void setRole(Set<String> role) {
-    this.role = role;
-  }
 }
