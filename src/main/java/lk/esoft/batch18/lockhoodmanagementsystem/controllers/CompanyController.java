@@ -29,14 +29,11 @@ public class CompanyController {
     }
 
     @GetMapping(
-            path = {"/get-all-company"},
-            params = {"page", "size"}
+            path = {"/get-all-company"}
     )
-    public ResponseEntity<StandardResponse> getAllCompanies(
-            @RequestParam(value = "page") int page,
-            @RequestParam(value = "size") @Max(50) int size
-
-    ) {
+    public ResponseEntity<StandardResponse> getAllCompanies() {
+        int page = 0;
+        int size = 1000;
         PaginatedGetCompanyDTO paginatedGetCompanyDTO = companyService.getAllCompanies(page, size);
         return new ResponseEntity<StandardResponse>(
                 new StandardResponse(200, "Success", paginatedGetCompanyDTO),

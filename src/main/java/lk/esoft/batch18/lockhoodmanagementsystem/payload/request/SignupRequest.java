@@ -1,5 +1,6 @@
 package lk.esoft.batch18.lockhoodmanagementsystem.payload.request;
 
+import lk.esoft.batch18.lockhoodmanagementsystem.models.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,7 +24,7 @@ public class SignupRequest {
   @Email
   private String email;
 
-  private Set<String> role;
+  private Set<Role> roles;
 
   @NotBlank
   @Size(min = 6, max = 40)
@@ -44,6 +45,5 @@ public class SignupRequest {
   private Date updatedDate;
   private Long companyId;
   private Long plantId;
-
 
 }

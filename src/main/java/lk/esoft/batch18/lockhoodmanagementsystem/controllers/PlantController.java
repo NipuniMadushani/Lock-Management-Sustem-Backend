@@ -31,15 +31,11 @@ public class PlantController {
     }
 
     @GetMapping(
-            path = {"/get-all-plant"},
-            params = {"page","size"}
+            path = {"/get-all-plant"}
     )
-    public ResponseEntity<StandardResponse> getAllPlant(
-            @RequestParam(value = "page") int page,
-            @RequestParam(value = "size") @Max(50) int size
-
-
-    ) {
+    public ResponseEntity<StandardResponse> getAllPlant() {
+        int page = 0;
+        int size = 1000;
         PaginatedGetPlantDTO paginatedGetPlantDTO = plantService.getAllPlants(page,size);
         return new ResponseEntity<StandardResponse>(
                 new StandardResponse(200,"Success",paginatedGetPlantDTO),

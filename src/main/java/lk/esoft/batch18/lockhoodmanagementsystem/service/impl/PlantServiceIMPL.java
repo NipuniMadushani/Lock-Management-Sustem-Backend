@@ -57,6 +57,8 @@ public class PlantServiceIMPL implements PlantService {
 
     @Override
     public PaginatedGetPlantDTO getAllPlants(int page, int size) {
+        page = 0;
+        size = 1000;
         Page<Plant> plants = plantRepo.findAll(PageRequest.of(page,size));
         if(plants.getSize()<1){
             throw new NotFoundException("no plants currently available");

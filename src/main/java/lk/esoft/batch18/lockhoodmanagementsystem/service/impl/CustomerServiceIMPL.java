@@ -58,6 +58,8 @@ public class CustomerServiceIMPL implements CustomerService {
 
     @Override
     public PaginatedGetCustomerDTO getAllCustomers(int page, int size) {
+        page = 0;
+        size = 1000;
         Page<Customer> customers = customerRepo.findAll(PageRequest.of(page,size));
         if(customers.getSize()<1){
             throw new NotFoundException("no customers currently available");

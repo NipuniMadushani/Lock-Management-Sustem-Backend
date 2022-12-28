@@ -60,6 +60,8 @@ public class CompanyServiceIMPL implements CompanyService {
 
     @Override
     public PaginatedGetCompanyDTO getAllCompanies(int page, int size) {
+        page = 0;
+        size = 1000;
         Page<Company> companies = companyRepo.findAll(PageRequest.of(page,size));
         if(companies.getSize()<1){
             throw new NotFoundException("no companies currently available");

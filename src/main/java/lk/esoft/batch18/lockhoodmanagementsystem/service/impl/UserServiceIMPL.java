@@ -21,6 +21,8 @@ public class UserServiceIMPL implements UserService {
 
     @Override
     public PaginatedUsers getAllUsers(int page, int size) {
+        page = 0;
+        size = 1000;
         Page<User> users = userRepository.findAll(PageRequest.of(page,size));
         if(users.getSize()<1){
             throw new NotFoundException("no users currently available");
