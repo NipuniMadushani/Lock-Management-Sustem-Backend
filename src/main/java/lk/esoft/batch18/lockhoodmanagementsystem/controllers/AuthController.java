@@ -7,22 +7,19 @@ import lk.esoft.batch18.lockhoodmanagementsystem.payload.request.LoginRequest;
 import lk.esoft.batch18.lockhoodmanagementsystem.payload.request.SignupRequest;
 import lk.esoft.batch18.lockhoodmanagementsystem.payload.response.JwtResponse;
 import lk.esoft.batch18.lockhoodmanagementsystem.payload.response.MessageResponse;
-import lk.esoft.batch18.lockhoodmanagementsystem.repository.CompanyRepo;
-import lk.esoft.batch18.lockhoodmanagementsystem.repository.PlantRepo;
-import lk.esoft.batch18.lockhoodmanagementsystem.repository.RoleRepository;
-import lk.esoft.batch18.lockhoodmanagementsystem.repository.UserRepository;
-import lk.esoft.batch18.lockhoodmanagementsystem.security.jwt.JwtUtils;
-import lk.esoft.batch18.lockhoodmanagementsystem.security.services.UserDetailsImpl;
+import lk.esoft.batch18.lockhoodmanagementsystem.repository.*;
+//import lk.esoft.batch18.lockhoodmanagementsystem.security.jwt.JwtUtils;
+//import lk.esoft.batch18.lockhoodmanagementsystem.security.services.UserDetailsImpl;
 import lk.esoft.batch18.lockhoodmanagementsystem.service.UserService;
 import lk.esoft.batch18.lockhoodmanagementsystem.util.StandardResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.authentication.AuthenticationManager;
+//import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+//import org.springframework.security.core.Authentication;
+//import org.springframework.security.core.context.SecurityContextHolder;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -33,12 +30,13 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+//@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
-    @Autowired
-    AuthenticationManager authenticationManager;
+//    @Autowired
+//    AuthenticationManager authenticationManager;
 
     @Autowired
     UserRepository userRepository;
@@ -46,11 +44,11 @@ public class AuthController {
     @Autowired
     RoleRepository roleRepository;
 
-    @Autowired
-    PasswordEncoder encoder;
+//    @Autowired
+//    PasswordEncoder encoder;
 
-    @Autowired
-    JwtUtils jwtUtils;
+//    @Autowired
+//    JwtUtils jwtUtils;
 
     @Autowired
     private UserService userService;
@@ -61,26 +59,29 @@ public class AuthController {
     @Autowired
     private PlantRepo plantRepo;
 
-    @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+    @Autowired
+    private DepartmentRepo departmentRepo;
 
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtUtils.generateJwtToken(authentication);
-
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-        List<String> roles = userDetails.getAuthorities().stream()
-                .map(item -> item.getAuthority())
-                .collect(Collectors.toList());
-
-        return ResponseEntity.ok(new JwtResponse(jwt,
-                userDetails.getId(),
-                userDetails.getUsername(),
-                userDetails.getEmail(),
-                roles));
-    }
+//    @PostMapping("/signin")
+//    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+//
+//        Authentication authentication = authenticationManager.authenticate(
+//                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+//
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
+//        String jwt = jwtUtils.generateJwtToken(authentication);
+//
+//        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+//        List<String> roles = userDetails.getAuthorities().stream()
+//                .map(item -> item.getAuthority())
+//                .collect(Collectors.toList());
+//
+//        return ResponseEntity.ok(new JwtResponse(jwt,
+//                userDetails.getId(),
+//                userDetails.getUsername(),
+//                userDetails.getEmail(),
+//                roles));
+//    }
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
@@ -101,10 +102,11 @@ public class AuthController {
 
         // Create new user's account
         User user = new User(
-                1L,
+                1,
                 signUpRequest.getUsername(),
                 signUpRequest.getEmail(),
-                encoder.encode(signUpRequest.getPassword()),
+//                encoder.encode(signUpRequest.getPassword()),
+                signUpRequest.getPassword(),
                 null,
                 signUpRequest.getFirstName(),
                 signUpRequest.getAddress(),
@@ -120,7 +122,10 @@ public class AuthController {
                 signUpRequest.getUpdatedBy(),
                 signUpRequest.getUpdatedDate(),
                 companyRepo.findById(signUpRequest.getCompanyId()).get(),
-                plantRepo.findById(signUpRequest.getPlantId()).get());
+                plantRepo.findById(signUpRequest.getPlantId()).get(),
+                null,
+                departmentRepo.getById(signUpRequest.getDepartmentId())
+                );
 
 
 

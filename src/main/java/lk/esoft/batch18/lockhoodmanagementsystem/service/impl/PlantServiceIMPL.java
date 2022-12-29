@@ -38,7 +38,7 @@ public class PlantServiceIMPL implements PlantService {
 
     @Override
     public String addPlant(RequestPlantSaveDTO requestPlantSaveDTO) {
-        Plant plant = modelMapper.map(requestPlantSaveDTO, Plant.class);
+        Plant plant = plantMapper.dtoToEntity(requestPlantSaveDTO);
         if (!plantRepo.existsById(plant.getId())) {
 
             LocalDateTime localDateTime = LocalDateTime.now();

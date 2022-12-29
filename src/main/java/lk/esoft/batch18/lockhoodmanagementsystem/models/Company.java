@@ -16,7 +16,7 @@ import java.util.Set;
 public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private int id;
 
     @Column(name = "com_owner_name",length = 100)
     private String ownerName;
@@ -49,5 +49,8 @@ public class Company {
 
     @OneToMany(mappedBy="company")
     private Set<Customer> customers;
+
+
+
 
 }

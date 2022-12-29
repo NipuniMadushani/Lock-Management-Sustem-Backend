@@ -41,9 +41,8 @@ public class CompanyServiceIMPL implements CompanyService {
 
     @Override
     public String addCompany(RequestCompanySaveDTO requestCompanySaveDTO) {
-        Company company = modelMapper.map(requestCompanySaveDTO, Company.class);
+        Company company = companyMapper.requestDtoToEntity(requestCompanySaveDTO);
         if (!companyRepo.existsById(company.getId())) {
-
             LocalDateTime localDateTime = LocalDateTime.now();
             LocalDate localDate = localDateTime.toLocalDate();
             Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
