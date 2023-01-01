@@ -8,7 +8,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 public class CompanyDTO {
-    private Long id;
+    private int id;
     private String ownerName;
     private String regId;
     private String address;

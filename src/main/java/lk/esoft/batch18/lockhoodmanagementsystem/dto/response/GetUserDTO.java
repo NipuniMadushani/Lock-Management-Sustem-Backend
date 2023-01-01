@@ -1,6 +1,7 @@
 package lk.esoft.batch18.lockhoodmanagementsystem.dto.response;
 
 import lk.esoft.batch18.lockhoodmanagementsystem.dto.CompanyDTO;
+import lk.esoft.batch18.lockhoodmanagementsystem.dto.DepartmentDTO;
 import lk.esoft.batch18.lockhoodmanagementsystem.dto.PlantDTO;
 import lk.esoft.batch18.lockhoodmanagementsystem.models.Role;
 import lombok.AllArgsConstructor;
@@ -33,4 +34,5 @@ public class GetUserDTO {
     private Date updatedDate;
     private CompanyDTO companyId;
     private PlantDTO plantId;
+    private DepartmentDTO departmentId;
 }
