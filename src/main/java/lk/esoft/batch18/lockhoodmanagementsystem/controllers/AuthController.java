@@ -3,32 +3,19 @@ package lk.esoft.batch18.lockhoodmanagementsystem.controllers;
 import lk.esoft.batch18.lockhoodmanagementsystem.dto.response.GetUserDTO;
 import lk.esoft.batch18.lockhoodmanagementsystem.models.*;
 import lk.esoft.batch18.lockhoodmanagementsystem.payload.paginated.PaginatedUsers;
-import lk.esoft.batch18.lockhoodmanagementsystem.payload.request.LoginRequest;
 import lk.esoft.batch18.lockhoodmanagementsystem.payload.request.SignupRequest;
-import lk.esoft.batch18.lockhoodmanagementsystem.payload.response.JwtResponse;
 import lk.esoft.batch18.lockhoodmanagementsystem.payload.response.MessageResponse;
 import lk.esoft.batch18.lockhoodmanagementsystem.repository.*;
-//import lk.esoft.batch18.lockhoodmanagementsystem.security.jwt.JwtUtils;
-//import lk.esoft.batch18.lockhoodmanagementsystem.security.services.UserDetailsImpl;
 import lk.esoft.batch18.lockhoodmanagementsystem.service.UserService;
 import lk.esoft.batch18.lockhoodmanagementsystem.util.StandardResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-//import org.springframework.security.authentication.AuthenticationManager;
-//import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-//import org.springframework.security.core.Authentication;
-//import org.springframework.security.core.context.SecurityContextHolder;
-//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Max;
-import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 //@CrossOrigin(origins = "*", maxAge = 3600)
 @CrossOrigin
@@ -97,7 +84,7 @@ public class AuthController {
                     .body(new MessageResponse("Error: Email is already in use!"));
         }
         Company company = companyRepo.findById(signUpRequest.getCompanyId()).get();
-        Plant plant=plantRepo.findById(signUpRequest.getPlantId()).get();
+        Plant plant = plantRepo.findById(signUpRequest.getPlantId()).get();
 
 
         // Create new user's account
@@ -125,9 +112,7 @@ public class AuthController {
                 plantRepo.findById(signUpRequest.getPlantId()).get(),
                 null,
                 departmentRepo.getById(signUpRequest.getDepartmentId())
-                );
-
-
+        );
 
 
         Set<Role> strRoles = signUpRequest.getRoles();
@@ -137,21 +122,38 @@ public class AuthController {
             Role userRole = roleRepository.findByName(ERole.ROLE_USER)
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
             roles.add(userRole);
+
+
         } else {
             strRoles.forEach(role -> {
-                switch(role.getName().name()) {
-                    case "admin":
+                switch (role.getName().name()) {
+                    case "ROLE_ADMIN":
                         Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(adminRole);
 
                         break;
-                    case "mod":
-                        Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
+
+                    case "ROLE_SUPERVISOR":
+                        Role supRole = roleRepository.findByName(ERole.ROLE_SUPERVISOR)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(modRole);
+                        roles.add(supRole);
+                        break;
+
+                    case "ROLE_ADMIN_ENGINEERING":
+                        Role rae = roleRepository.findByName(ERole.ROLE_ADMIN_ENGINEERING)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        roles.add(rae);
 
                         break;
+
+                    case "ROLE_ADMIN_PURCHASE_OFFICE":
+                        Role rapo = roleRepository.findByName(ERole.ROLE_ADMIN_PURCHASE_OFFICE)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        roles.add(rapo);
+
+                        break;
+
                     default:
                         Role userRole = roleRepository.findByName(ERole.ROLE_USER)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
@@ -182,9 +184,9 @@ public class AuthController {
     @GetMapping(
             path = "/get-by-id-active",
             params = "id")
-    public ResponseEntity<StandardResponse> getUserByIdActive(@RequestParam(value = "id") Long userId){
+    public ResponseEntity<StandardResponse> getUserByIdActive(@RequestParam(value = "id") Long userId) {
         boolean b = true;
-        GetUserDTO getUserDTO = userService.getUserByIdActive(userId,b);
+        GetUserDTO getUserDTO = userService.getUserByIdActive(userId, b);
         return new ResponseEntity<StandardResponse>(
                 new StandardResponse(200, "Success", getUserDTO),
                 HttpStatus.OK
