@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 import lk.esoft.batch18.lockhoodmanagementsystem.models.User;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, Integer> {
   Optional<User> findByUsername(String username);
 
   Boolean existsByUsername(String username);
@@ -24,4 +24,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
   Page<User> findAll(Pageable pageable);
 
   long countAllBy();
+
+  User getByIdAndActiveState(Long userId,boolean b);
 }

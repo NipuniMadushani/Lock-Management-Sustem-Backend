@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @EnableJpaRepositories
-public interface CompanyRepo extends JpaRepository<Company,Long> {
+public interface CompanyRepo extends JpaRepository<Company,Integer> {
 
     Long countAllBy();
 }

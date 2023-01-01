@@ -16,7 +16,7 @@ import java.util.Set;
 public class Plant {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private int id;
 
     @Column(name = "plant_location",length = 100)
     private String plantLocation;
@@ -26,9 +26,6 @@ public class Plant {
 
     @Column(name = "plant_reg_id",length = 100)
     private String plantRegId;
-
-    @OneToMany(mappedBy="plant")
-    private Set<User> users;
 
     @Column(name = "created_by",length = 100)
     private String createdBy;
@@ -43,4 +40,10 @@ public class Plant {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_date",length = 100)
     private Date updatedDate;
+
+    @OneToMany(mappedBy="plant")
+    private Set<User> users;
+
+
+
 }
