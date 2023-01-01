@@ -17,5 +17,5 @@ public class RequestCustomerSaveDTO {
     private Date createdDate;
     private String updatedBy;
     private Date updatedDate;
-    private Long companyId;
+    private int companyId;
 }

@@ -1,5 +1,6 @@
 package lk.esoft.batch18.lockhoodmanagementsystem.payload.request;
 
+import lk.esoft.batch18.lockhoodmanagementsystem.models.Department;
 import lk.esoft.batch18.lockhoodmanagementsystem.models.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -43,7 +44,8 @@ public class SignupRequest {
   private Date createdDate;
   private String updatedBy;
   private Date updatedDate;
-  private Long companyId;
-  private Long plantId;
+  private int companyId;
+  private int plantId;
+  private int departmentId;
 
 }
