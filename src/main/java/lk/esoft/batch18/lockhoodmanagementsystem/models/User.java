@@ -25,7 +25,7 @@ import javax.validation.constraints.Size;
 public class User {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long id;
+  private int id;
 
   @NotBlank
   @Size(max = 20)
@@ -93,5 +93,11 @@ public class User {
   @JoinColumn(name="plant", nullable=false)
   private Plant plant;
 
+  @OneToMany(mappedBy="user")
+  private Set<Task> task;
+
+  @ManyToOne
+  @JoinColumn(name="department_id", nullable=false)
+  private Department department;
 
 }
