@@ -38,7 +38,6 @@ public class DepartmentServiceIMPL implements DepartmentService {
     public String addDepartment(DepartmentDTO departmentDTO) {
         Department department = departmentMapper.requestDtoToEntity(departmentDTO);
         if (!departmentRepo.existsById(department.getId())) {
-
             departmentRepo.save(department);
             return "saved " + department.getId();
         }else {

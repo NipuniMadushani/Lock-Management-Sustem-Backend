@@ -39,7 +39,6 @@ public class CustomerServiceIMPL implements CustomerService {
     @Override
     public String addCustomer(RequestCustomerSaveDTO requestCustomerSaveDTO) {
         Customer customer = modelMapper.map(requestCustomerSaveDTO, Customer.class);
-        customer.setCompany(companyRepo.findById(requestCustomerSaveDTO.getCompanyId()).get());
         if (!customerRepo.existsById(customer.getId())) {
 
             LocalDateTime localDateTime = LocalDateTime.now();

@@ -1,10 +1,7 @@
 package lk.esoft.batch18.lockhoodmanagementsystem;
 
-import lk.esoft.batch18.lockhoodmanagementsystem.models.Company;
-import lk.esoft.batch18.lockhoodmanagementsystem.models.ERole;
-import lk.esoft.batch18.lockhoodmanagementsystem.models.Role;
-import lk.esoft.batch18.lockhoodmanagementsystem.repository.CompanyRepo;
-import lk.esoft.batch18.lockhoodmanagementsystem.repository.RoleRepository;
+import lk.esoft.batch18.lockhoodmanagementsystem.models.*;
+import lk.esoft.batch18.lockhoodmanagementsystem.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -26,6 +23,18 @@ public class SpringBootSecurityJwtApplication implements CommandLineRunner {
 
 	@Autowired
 	private CompanyRepo companyRepo;
+
+	@Autowired
+	private PlantRepo plantRepo;
+
+	@Autowired
+	private FactoryRepo factoryRepo;
+
+	@Autowired
+	private DepartmentRepo departmentRepo;
+
+	@Autowired
+	private WorkshopRepo workshopRepo;
 
 	public static void main(String[] args) {
     SpringApplication.run(SpringBootSecurityJwtApplication.class, args);
@@ -49,6 +58,46 @@ public class SpringBootSecurityJwtApplication implements CommandLineRunner {
 			);
 
 			companyRepo.save(company);
+		}
+
+		if(plantRepo.findAll().size()<=0){
+			Plant plant = new Plant(
+					1,
+					"Moratuwa",
+					"plantLock",
+					"0090998900"
+			);
+			plantRepo.save(plant);
+
+		}
+		if(factoryRepo.findAll().size()<=0){
+			Factory factory = new Factory(
+					1,
+					"factory",
+					"goodType",
+					plantRepo.getById(2)
+			);
+			factoryRepo.save(factory);
+		}
+
+		if(departmentRepo.findAll().size()<=0){
+			Department department = new Department(
+					1,
+					"department1",
+					100,
+					factoryRepo.getById(3)
+			);
+			departmentRepo.save(department);
+		}
+		if(workshopRepo.findAll().size()<=0){
+			Workshop workshop = new Workshop(
+					1,
+					"work",
+					"panadura",
+					"wo@gmail.com",
+					factoryRepo.getById(3)
+			);
+			workshopRepo.save(workshop);
 		}
 		if (roleRepository.findAll().size()<=0) {
 			Role role = new Role(

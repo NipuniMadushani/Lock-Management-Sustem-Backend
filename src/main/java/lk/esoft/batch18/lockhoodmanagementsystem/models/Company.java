@@ -44,11 +44,11 @@ public class Company {
     @Column(name = "updated_date",length = 100)
     private Date updatedDate;
 
-    @OneToMany(mappedBy="company")
-    private Set<User> users;
-
-    @OneToMany(mappedBy="company")
-    private Set<Customer> customers;
+//    @OneToMany(mappedBy="company")
+//    private Set<User> users;
+//
+//    @OneToMany(mappedBy="company")
+//    private Set<Customer> customers;
 
     public Company(String ownerName, String regId, String address, int contactNumber, String createdBy, Date createdDate, String updatedBy, Date updatedDate) {
         this.ownerName = ownerName;

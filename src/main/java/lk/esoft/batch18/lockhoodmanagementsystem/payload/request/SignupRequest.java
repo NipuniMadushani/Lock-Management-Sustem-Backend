@@ -24,12 +24,9 @@ public class SignupRequest {
   @Size(max = 50)
   @Email
   private String email;
-
   private Set<Role> roles;
-
   @NotBlank
   @Size(min = 6, max = 40)
-
   private String password;
   private String firstName;
   private String address;
@@ -44,8 +41,6 @@ public class SignupRequest {
   private Date createdDate;
   private String updatedBy;
   private Date updatedDate;
-  private int companyId;
-  private int plantId;
   private int departmentId;
 
 }

@@ -94,8 +94,7 @@ public class AuthController {
                     .badRequest()
                     .body(new MessageResponse("Error: Email is already in use!"));
         }
-        Company company = companyRepo.findById(signUpRequest.getCompanyId()).get();
-        Plant plant = plantRepo.findById(signUpRequest.getPlantId()).get();
+
 
 
         // Create new user's account
@@ -119,8 +118,6 @@ public class AuthController {
                 signUpRequest.getCreatedDate(),
                 signUpRequest.getUpdatedBy(),
                 signUpRequest.getUpdatedDate(),
-                companyRepo.findById(signUpRequest.getCompanyId()).get(),
-                plantRepo.findById(signUpRequest.getPlantId()).get(),
                 null,
                 departmentRepo.getById(signUpRequest.getDepartmentId())
         );

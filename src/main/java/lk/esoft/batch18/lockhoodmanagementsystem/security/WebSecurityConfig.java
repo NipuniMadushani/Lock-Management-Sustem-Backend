@@ -96,15 +96,13 @@ public class WebSecurityConfig  { // extends WebSecurityConfigurerAdapter {
     http.cors().and().csrf().disable()
         .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-        .authorizeRequests().antMatchers("/swagger-ui/**","/javainuse-openapi/**","/api/auth/**","/api/v1/company/**","/api/v1/plant/**","/api/v1/customer/**").permitAll()
-        .antMatchers("/api/test/**").permitAll()
+//        .authorizeRequests().antMatchers("/swagger-ui/**","/javainuse-openapi/**","/api/auth/**","/api/v1/company/**","/api/v1/plant/**","/api/v1/customer/**").permitAll()
+            .authorizeRequests().antMatchers("/api/auth/**").permitAll()
+            .antMatchers("/api/test/**").permitAll()
             .anyRequest().authenticated();
 
-
     http.authenticationProvider(authenticationProvider());
-
     http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-
     return http.build();
   }
 

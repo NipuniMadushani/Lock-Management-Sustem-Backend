@@ -85,13 +85,13 @@ public class User {
   @Column(name = "updated_date",length = 100)
   private Date updatedDate;
 
-  @ManyToOne
-  @JoinColumn(name="company_id", nullable=false)
-  private Company company;
+//  @ManyToOne
+//  @JoinColumn(name="company_id", nullable=false)
+//  private Company company;
 
-  @ManyToOne
-  @JoinColumn(name="plant", nullable=false)
-  private Plant plant;
+//  @ManyToOne
+//  @JoinColumn(name="plant", nullable=false)
+//  private Plant plant;
 
   @OneToMany(mappedBy="user")
   private Set<Task> task;

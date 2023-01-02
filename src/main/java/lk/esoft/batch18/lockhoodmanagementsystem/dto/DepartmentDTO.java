@@ -19,7 +19,8 @@ public class DepartmentDTO {
     private int id;
     private String name;
     private int managerId;
-    private int rdDepartmentId;
-    private int rdWorkshopId;
-    private int rdSupervisorId;
+//    private int rdDepartmentId;
+//    private int rdWorkshopId;
+//    private int rdSupervisorId;
+    private FactoryDTO factory;
 }

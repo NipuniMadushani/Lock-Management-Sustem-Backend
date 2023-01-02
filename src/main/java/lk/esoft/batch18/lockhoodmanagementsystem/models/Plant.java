@@ -42,8 +42,13 @@ public class Plant {
     private Date updatedDate;
 
     @OneToMany(mappedBy="plant")
-    private Set<User> users;
+    private Set<Factory> factories;
 
 
-
+    public Plant(int id, String plantLocation, String plantName, String plantRegId) {
+        this.id = id;
+        this.plantLocation = plantLocation;
+        this.plantName = plantName;
+        this.plantRegId = plantRegId;
+    }
 }

@@ -42,10 +42,10 @@ public class Customer {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_date",length = 100)
     private Date updatedDate;
-
-    @ManyToOne
-    @JoinColumn(name="company_id", nullable=false)
-    private Company company;
+//
+//    @ManyToOne
+//    @JoinColumn(name="company_id", nullable=false)
+//    private Company company;
 
 
 
