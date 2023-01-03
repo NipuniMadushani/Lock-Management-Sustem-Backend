@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "task")
@@ -38,19 +39,13 @@ public class Task {
     @Column(name = "due_date")
     private Date dueDate;
 
-    @Column(name = "supervision_id")
-    private int supervisionId;
-
-    @Column(name = "department_id")
-    private int departmentId;
-
-    @Column(name = "report_id")
-    private int reportId;
-
     @ManyToOne
     @JoinColumn(name="user_id", nullable=false)
     private User user;
 
     @OneToOne(mappedBy = "task")
     private KanBanCard kanBanCard;
+
+    @OneToMany(mappedBy="task")
+    private Set<Kpi> kpis;
 }

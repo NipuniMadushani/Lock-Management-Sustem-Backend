@@ -23,17 +23,15 @@ public class Department {
     @Column(name = "manager_id")
     private int managerId;
 
-//    @Column(name = "rd_department_id")
-//    private int rdDepartmentId;
-//
-//    @Column(name = "rd_workshop_id")
-//    private int rdWorkshopId;
-//
-//    @Column(name = "rd_supervisor_id")
-//    private int rdSupervisorId;
 
     @OneToMany(mappedBy="department")
     private Set<User> users;
+
+
+
+    @ManyToOne
+    @JoinColumn(name="factory_id", nullable=false)
+    private Factory factory;
 
     public Department(int id, String name, int managerId, Factory factory) {
         this.id = id;
@@ -41,10 +39,6 @@ public class Department {
         this.managerId = managerId;
         this.factory = factory;
     }
-
-    @ManyToOne
-    @JoinColumn(name="factory_id", nullable=false)
-    private Factory factory;
 
 
 }

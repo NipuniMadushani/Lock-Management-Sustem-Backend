@@ -119,7 +119,9 @@ public class AuthController {
                 signUpRequest.getUpdatedBy(),
                 signUpRequest.getUpdatedDate(),
                 null,
-                departmentRepo.getById(signUpRequest.getDepartmentId())
+                departmentRepo.getById(signUpRequest.getDepartmentId()),
+                        null,
+                null
         );
 
 

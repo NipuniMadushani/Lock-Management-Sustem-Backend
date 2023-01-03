@@ -30,7 +30,7 @@ public class DepartmentController {
     }
 
     @GetMapping(path = "get-all-departments")
-    public ResponseEntity<StandardResponse> getAlldepartments(){
+    public ResponseEntity<StandardResponse> getAllDepartments(){
         List<DepartmentDTO> allDeparts = departmentService.getAlldeparts();
         return new ResponseEntity<StandardResponse>(
                 new StandardResponse(200,"Success",allDeparts),

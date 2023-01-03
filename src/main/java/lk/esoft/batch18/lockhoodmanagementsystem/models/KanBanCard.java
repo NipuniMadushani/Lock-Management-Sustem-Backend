@@ -23,7 +23,8 @@ public class KanBanCard {
     @JoinColumn(name = "task_id", referencedColumnName = "id")
     private Task task;
 
+
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "supervisor_id", referencedColumnName = "id")
-    private Supervisor supervisor;
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
 }

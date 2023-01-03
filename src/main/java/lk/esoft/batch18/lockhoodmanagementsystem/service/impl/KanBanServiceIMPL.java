@@ -3,10 +3,7 @@ package lk.esoft.batch18.lockhoodmanagementsystem.service.impl;
 import lk.esoft.batch18.lockhoodmanagementsystem.dto.KanBanDTO;
 import lk.esoft.batch18.lockhoodmanagementsystem.models.Department;
 import lk.esoft.batch18.lockhoodmanagementsystem.models.KanBanCard;
-import lk.esoft.batch18.lockhoodmanagementsystem.repository.DepartmentRepo;
-import lk.esoft.batch18.lockhoodmanagementsystem.repository.KanBanRepo;
-import lk.esoft.batch18.lockhoodmanagementsystem.repository.SupervisorRepo;
-import lk.esoft.batch18.lockhoodmanagementsystem.repository.TaskRepo;
+import lk.esoft.batch18.lockhoodmanagementsystem.repository.*;
 import lk.esoft.batch18.lockhoodmanagementsystem.service.KanBanService;
 import lk.esoft.batch18.lockhoodmanagementsystem.util.mappers.DepartmentMapper;
 import lk.esoft.batch18.lockhoodmanagementsystem.util.mappers.KanBanMapper;
@@ -29,7 +26,7 @@ public class KanBanServiceIMPL implements KanBanService {
     private KanBanMapper kanBanMapper;
 
     @Autowired
-    private SupervisorRepo supervisorRepo;
+    private UserRepository userRepository;
 
     @Autowired
     private TaskRepo taskRepo;
@@ -38,7 +35,7 @@ public class KanBanServiceIMPL implements KanBanService {
     public String addKanBan(KanBanDTO kanBanDTO) {
         KanBanCard kanBanCard = kanBanMapper.requestDtoToEntity(kanBanDTO);
         if (!kanBanRepo.existsById(kanBanCard.getId())) {
-            kanBanCard.setSupervisor(supervisorRepo.getById(kanBanDTO.getSupervisorId()));
+            kanBanCard.setUser(userRepository.getById(kanBanDTO.getUserId()));
             kanBanCard.setTask(taskRepo.getById(kanBanDTO.getTaskId()));
 
             kanBanRepo.save(kanBanCard);

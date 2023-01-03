@@ -100,4 +100,10 @@ public class User {
   @JoinColumn(name="department_id", nullable=false)
   private Department department;
 
+  @OneToMany(mappedBy="user")
+  private Set<Kpi> kpis;
+
+  @OneToOne(mappedBy = "user")
+  private KanBanCard kanBanCard;
+
 }
