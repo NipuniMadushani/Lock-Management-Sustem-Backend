@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "workshops")
@@ -29,4 +30,14 @@ public class Workshop {
     @JoinColumn(name="factory_id", nullable=false)
     private Factory factory;
 
+    @OneToMany(mappedBy="workshop")
+    private Set<Product> product;
+
+    public Workshop(int id, String name, String address, String email, Factory factory) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+        this.email = email;
+        this.factory = factory;
+    }
 }

@@ -95,7 +95,8 @@ public class SpringBootSecurityJwtApplication implements CommandLineRunner {
 					"work",
 					"panadura",
 					"wo@gmail.com",
-					factoryRepo.getById(3)
+					factoryRepo.getById(3),
+					null
 			);
 			workshopRepo.save(workshop);
 		}

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "customer")
@@ -46,6 +47,9 @@ public class Customer {
 //    @ManyToOne
 //    @JoinColumn(name="company_id", nullable=false)
 //    private Company company;
+
+    @OneToMany(mappedBy="customer")
+    private Set<Sale> sale;
 
 
 
